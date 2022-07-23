@@ -15,16 +15,16 @@
 </style>
 
 <body onload='init()'>
-	<svg width=300 height=300>
+	<svg width=900 height=900>
 	</svg>
 	<script>
 		async function init() {
 			msx = d3.scaleLog()
 				.domain([10, 150])
-				.range([0, 200]);
+				.range([0, 800]);
 			msy = d3.scaleLog()
 				.domain([150, 10])
-				.range([0, 200]);
+				.range([0, 800]);
 			margin = 50
 
 			const data = await d3.csv('https://flunky.github.io/cars2017.csv');
@@ -44,7 +44,7 @@
 
 			d3.select('svg')
 				.append('g')
-				.attr('transform', 'translate(' + margin + ',' + (200 + margin) + ')')
+				.attr('transform', 'translate(' + margin + ',' + (800 + margin) + ')')
 				.call(d3.axisBottom(msx).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")))
 		}
 	</script>
