@@ -14,11 +14,11 @@
 </style>
 
 <body onload='init()'>
-	<svg width=900 height=900>
+	<svg width=1000 height=1000>
 	</svg>
 	<!-- Create a div where the legend will take place -->
 	<div>
-		<svg id="my_dataviz" height=100 width=450></svg>
+		<svg id="my_dataviz" height=50 width=450></svg>
 	</div>
 	<script>
 		async function init() {
@@ -28,7 +28,7 @@
 			msy = d3.scaleLog()
 				.domain([150, 10])
 				.range([0, 800]);
-			margin = 50
+			margin = 100
 
 			const data = await d3.csv('https://raw.githubusercontent.com/kinnerful/kinnerful.github.io/main/cars2017.csv');
 			d3.select('body')
@@ -47,20 +47,29 @@
 				.append('g')
 				.attr('transform', 'translate(' + margin + ',' + margin + ')')
 				.call(d3.axisLeft(msy).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")))
+				.call(g => g.append("text")
+					.attr("fill", "currentColor")
+					.attr("text-anchor", "middle")
+					.text("Average Highway MPG")).style("font-size", "12")
 
 			d3.select('svg')
 				.append('g')
 				.attr('transform', 'translate(' + margin + ',' + (800 + margin) + ')')
 				.call(d3.axisBottom(msx).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")))
-			
+				.call(g => g.append("text")
+					.attr("fill", "currentColor")
+					.attr("text-anchor", "start")
+					.attr("x", 800)
+					.text("Average City MPG")).style("font-size", "12")
+
 			var leg = d3.select("#my_dataviz")
 
 			// Handmade legend
-			leg.append("circle").attr("cx", 200).attr("cy", 30).attr("r", 6).style("fill", "lightblue")
-			leg.append("circle").attr("cx", 200).attr("cy", 60).attr("r", 6).style("fill", "blue")
-			leg.append("text").attr("x", 220).attr("y", 30)
+			leg.append("circle").attr("cx", 200).attr("cy", 10).attr("r", 6).style("fill", "lightblue")
+			leg.append("circle").attr("cx", 200).attr("cy", 40).attr("r", 6).style("fill", "blue")
+			leg.append("text").attr("x", 220).attr("y", 10)
 				.text("Fossil Fuel").style("font-size", "15px").attr("alignment-baseline", "middle")
-			leg.append("text").attr("x", 220).attr("y", 60)
+			leg.append("text").attr("x", 220).attr("y", 40)
 				.text("Electricity").style("font-size", "15px").attr("alignment-baseline", "middle")
 		}
 	</script>
