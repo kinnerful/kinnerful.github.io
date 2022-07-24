@@ -27,7 +27,7 @@
 				.range([0, 800]);
 			margin = 50
 
-			const data = await d3.csv('cars2017.csv');
+			const data = await d3.csv('https://raw.githubusercontent.com/kinnerful/kinnerful.github.io/main/cars2017.csv');
 			d3.select('body')
 				.select('svg')
 				.append('g')
