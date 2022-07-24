@@ -4,12 +4,11 @@
 
 <!-- Load d3-annotation -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.js"
-  integrity="sha512-OYIn9Tx6AQ/OfeUow7zLScBXV38CqumwIpue7WoR7RczlHJUVU+GqJmQ2Zmq/NrRsMhCN4EDGM4Wp97iTo34Jw=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	integrity="sha512-OYIn9Tx6AQ/OfeUow7zLScBXV38CqumwIpue7WoR7RczlHJUVU+GqJmQ2Zmq/NrRsMhCN4EDGM4Wp97iTo34Jw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <style>
 	circle {
-		fill: lightblue;
 		stroke: black;
 	}
 </style>
@@ -17,6 +16,10 @@
 <body onload='init()'>
 	<svg width=900 height=900>
 	</svg>
+	<!-- Create a div where the legend will take place -->
+	<div>
+		<svg id="my_dataviz" height=200 width=450></svg>
+	</div>
 	<script>
 		async function init() {
 			msx = d3.scaleLog()
@@ -35,7 +38,10 @@
 				.selectAll('circle').data(data).enter().append('circle')
 				.attr('cx', function (d) { return msx(d.AverageCityMPG); })
 				.attr('cy', function (d) { return msy(d.AverageHighwayMPG); })
-				.attr('r', function (d) { return Number(d.EngineCylinders) + 2; })
+				.attr('r', function (d) { return Number(d.EngineCylinders) + 4; })
+				.attr("fill", "lightblue")
+				.filter(function (d) { return d.Fuel == "Electricity" })
+				.attr("fill", "blue")
 
 			d3.select('svg')
 				.append('g')
@@ -46,6 +52,16 @@
 				.append('g')
 				.attr('transform', 'translate(' + margin + ',' + (800 + margin) + ')')
 				.call(d3.axisBottom(msx).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")))
+			
+			var leg = d3.select("#my_dataviz")
+
+			// Handmade legend
+			leg.append("circle").attr("cx", 200).attr("cy", 130).attr("r", 6).style("fill", "lightblue")
+			leg.append("circle").attr("cx", 200).attr("cy", 160).attr("r", 6).style("fill", "blue")
+			leg.append("text").attr("x", 220).attr("y", 130)
+				.text("Fossil Fuel").style("font-size", "15px").attr("alignment-baseline", "middle")
+			leg.append("text").attr("x", 220).attr("y", 160)
+				.text("Electricity").style("font-size", "15px").attr("alignment-baseline", "middle")
 		}
 	</script>
 </body>
