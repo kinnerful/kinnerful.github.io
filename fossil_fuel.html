@@ -1,1 +1,77 @@
+<html>
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v5.js"></script>
 
+<!-- Load d3-annotation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.js"
+	integrity="sha512-OYIn9Tx6AQ/OfeUow7zLScBXV38CqumwIpue7WoR7RczlHJUVU+GqJmQ2Zmq/NrRsMhCN4EDGM4Wp97iTo34Jw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+	circle {
+		stroke: black;
+	}
+</style>
+
+<body onload='init()'>
+	<svg width=1000 height=1000>
+	</svg>
+	<!-- Create a div where the legend will take place -->
+	<div>
+		<svg id="my_dataviz" height=50 width=450></svg>
+	</div>
+	<script>
+		async function init() {
+			msx = d3.scaleLog()
+				.domain([10, 50])
+				.range([0, 800]);
+			msy = d3.scaleLog()
+				.domain([50, 10])
+				.range([0, 800]);
+			margin = 100
+
+			const data = await d3.csv('https://raw.githubusercontent.com/kinnerful/kinnerful.github.io/main/cars2017.csv');
+			d3.select('body')
+				.select('svg')
+				.append('g')
+				.attr('transform', 'translate(' + margin + ',' + margin + ')')
+				.selectAll('circle').data(data).enter().append('circle')
+        .filter(function (d) { return d.Fuel != "Electricity" })
+				.attr('cx', function (d) { return msx(d.AverageCityMPG); })
+				.attr('cy', function (d) { return msy(d.AverageHighwayMPG); })
+				.attr('r', function (d) { return Number(d.EngineCylinders) + 4; })
+				.attr("fill", "lightblue")
+
+			d3.select('svg')
+				.append('g')
+				.attr('transform', 'translate(' + margin + ',' + margin + ')')
+				.call(d3.axisLeft(msy).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")))
+				.call(g => g.append("text")
+					.attr("fill", "currentColor")
+					.attr("text-anchor", "middle")
+					.text("Average Highway MPG")).style("font-size", "12")
+
+			d3.select('svg')
+				.append('g')
+				.attr('transform', 'translate(' + margin + ',' + (800 + margin) + ')')
+				.call(d3.axisBottom(msx).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")))
+				.call(g => g.append("text")
+					.attr("fill", "currentColor")
+					.attr("text-anchor", "start")
+					.attr("x", 800)
+					.text("Average City MPG")).style("font-size", "12")
+
+			var leg = d3.select("#my_dataviz")
+
+			// Handmade legend
+			leg.append("circle").attr("cx", 200).attr("cy", 10).attr("r", 6).style("fill", "lightblue")
+			leg.append("circle").attr("cx", 200).attr("cy", 40).attr("r", 6).style("fill", "blue")
+			leg.append("text").attr("x", 220).attr("y", 10)
+				.text("Fossil Fuel").style("font-size", "15px").attr("alignment-baseline", "middle")
+			leg.append("text").attr("x", 220).attr("y", 40)
+				.text("Electricity").style("font-size", "15px").attr("alignment-baseline", "middle")
+		}
+	</script>
+</body>
+
+</html>
