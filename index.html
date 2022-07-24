@@ -18,7 +18,7 @@
 	</svg>
 	<!-- Create a div where the legend will take place -->
 	<div>
-		<svg id="my_dataviz" height=200 width=450></svg>
+		<svg id="my_dataviz" height=100 width=450></svg>
 	</div>
 	<script>
 		async function init() {
@@ -56,11 +56,11 @@
 			var leg = d3.select("#my_dataviz")
 
 			// Handmade legend
-			leg.append("circle").attr("cx", 200).attr("cy", 130).attr("r", 6).style("fill", "lightblue")
-			leg.append("circle").attr("cx", 200).attr("cy", 160).attr("r", 6).style("fill", "blue")
-			leg.append("text").attr("x", 220).attr("y", 130)
+			leg.append("circle").attr("cx", 200).attr("cy", 30).attr("r", 6).style("fill", "lightblue")
+			leg.append("circle").attr("cx", 200).attr("cy", 60).attr("r", 6).style("fill", "blue")
+			leg.append("text").attr("x", 220).attr("y", 30)
 				.text("Fossil Fuel").style("font-size", "15px").attr("alignment-baseline", "middle")
-			leg.append("text").attr("x", 220).attr("y", 160)
+			leg.append("text").attr("x", 220).attr("y", 60)
 				.text("Electricity").style("font-size", "15px").attr("alignment-baseline", "middle")
 		}
 	</script>
