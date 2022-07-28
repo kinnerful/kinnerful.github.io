@@ -63,13 +63,28 @@
 
 			var leg = d3.select("#my_dataviz")
 
-			// Handmade legend
-			leg.append("circle").attr("cx", 200).attr("cy", 10).attr("r", 6).style("fill", "lightblue")
-			leg.append("circle").attr("cx", 200).attr("cy", 40).attr("r", 6).style("fill", "lightblue")
-			leg.append("text").attr("x", 220).attr("y", 10)
-				.text("Fossil Fuel").style("font-size", "15px").attr("alignment-baseline", "middle")
-			leg.append("text").attr("x", 220).attr("y", 40)
-				.text("Electricity").style("font-size", "15px").attr("alignment-baseline", "middle")
+			// Features of the annotation
+			const annotations = [
+				{
+					note: {
+						label: "Fewer cylinders, higher MPG",
+						title: "Fossil Fuel Cars"
+					},
+					color: ["black"],
+					x: 500,
+					y: 500,
+					dy: 100,
+					dx: 100
+				},
+
+			]
+
+			// Add annotation to the chart
+			const makeAnnotations = d3.annotation()
+				.annotations(annotations)
+			d3.select("svg")
+				.append("g")
+				.call(makeAnnotations)
 		}
 	</script>
 </body>
