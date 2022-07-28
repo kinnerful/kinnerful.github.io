@@ -36,7 +36,7 @@
 				.append('g')
 				.attr('transform', 'translate(' + margin + ',' + margin + ')')
 				.selectAll('circle').data(data).enter().append('circle')
-        .filter(function (d) { return d.Fuel != "Electricity" })
+				.filter(function (d) { return d.Fuel != "Electricity" })
 				.attr('cx', function (d) { return msx(d.AverageCityMPG); })
 				.attr('cy', function (d) { return msy(d.AverageHighwayMPG); })
 				.attr('r', function (d) { return Number(d.EngineCylinders) + 4; })
@@ -45,7 +45,7 @@
 			d3.select('svg')
 				.append('g')
 				.attr('transform', 'translate(' + margin + ',' + margin + ')')
-				.call(d3.axisLeft(msy).tickValues([10, 20, 40, 50]).tickFormat(d3.format("~s")))
+				.call(d3.axisLeft(msy).tickValues([10, 20, 40]).tickFormat(d3.format("~s")))
 				.call(g => g.append("text")
 					.attr("fill", "currentColor")
 					.attr("text-anchor", "middle")
@@ -54,7 +54,7 @@
 			d3.select('svg')
 				.append('g')
 				.attr('transform', 'translate(' + margin + ',' + (800 + margin) + ')')
-				.call(d3.axisBottom(msx).tickValues([10, 20, 40, 50]).tickFormat(d3.format("~s")))
+				.call(d3.axisBottom(msx).tickValues([10, 20, 40]).tickFormat(d3.format("~s")))
 				.call(g => g.append("text")
 					.attr("fill", "currentColor")
 					.attr("text-anchor", "start")
@@ -85,6 +85,14 @@
 			d3.select("svg")
 				.append("g")
 				.call(makeAnnotations)
+				
+			// Handmade legend
+			leg.append("circle").attr("cx", 200).attr("cy", 10).attr("r", 6).style("fill", "lightblue")
+			leg.append("circle").attr("cx", 200).attr("cy", 40).attr("r", 6).style("fill", "blue")
+			leg.append("text").attr("x", 220).attr("y", 10)
+				.text("Fossil Fuel").style("font-size", "15px").attr("alignment-baseline", "middle")
+			leg.append("text").attr("x", 220).attr("y", 40)
+				.text("Electricity").style("font-size", "15px").attr("alignment-baseline", "middle")
 		}
 	</script>
 </body>
