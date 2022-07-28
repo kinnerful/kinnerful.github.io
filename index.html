@@ -14,8 +14,10 @@
 </style>
 
 <body onload='init()'>
+	
 	<svg width=1000 height=1000>
 	</svg>
+
 	<!-- Create a div where the legend will take place -->
 	<div>
 		<svg id="my_dataviz" height=50 width=450></svg>
@@ -64,6 +66,41 @@
 
 			var leg = d3.select("#my_dataviz")
 
+			// Features of the annotation
+			const annotations = [
+				{
+					note: {
+						label: "Including Diesel and Gasoline Cars",
+						title: "Fossil Fuel Cars"
+					},
+					color: ["black"],
+					x: 300,
+					y: 700,
+					dy: 100,
+					dx: 100
+				},
+				{
+					note: {
+						label: "Using MPGe instead of MPG",
+						title: "Electric Cars"
+					},
+					color: ["black"],
+					x: 790,
+					y: 275,
+					dy: 100,
+					dx: 100
+				},
+
+			]
+
+			// Add annotation to the chart
+			const makeAnnotations = d3.annotation()
+				.annotations(annotations)
+			d3.select("svg")
+				.append("g")
+				.call(makeAnnotations)
+
+
 			// Handmade legend
 			leg.append("circle").attr("cx", 200).attr("cy", 10).attr("r", 6).style("fill", "lightblue")
 			leg.append("circle").attr("cx", 200).attr("cy", 40).attr("r", 6).style("fill", "blue")
@@ -73,6 +110,9 @@
 				.text("Electricity").style("font-size", "15px").attr("alignment-baseline", "middle")
 		}
 	</script>
+
+
+
 </body>
 
 </html>
