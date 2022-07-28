@@ -14,7 +14,7 @@
 </style>
 
 <body onload='init()'>
-	
+
 	<svg width=1000 height=1000>
 	</svg>
 
@@ -43,7 +43,30 @@
 				.attr('r', function (d) { return Number(d.EngineCylinders) + 4; })
 				.attr("fill", "lightblue")
 				.filter(function (d) { return d.Fuel == "Electricity" })
-				.attr("fill", "blue")
+				.attr("fill", "blue");
+
+			// Link to subgraphs
+			d3.select('svg')
+				.append('g')
+				.append("a")
+				.attr("xlink:href", "fossil_fuel.html")
+				.append("rect")
+				.attr("x", 100)
+				.attr("y", 450)
+				.attr("height", 450)
+				.attr("width", 450)
+				.style("fill", "transparent");
+			d3.select('svg')
+				.append('g')
+				.append("a")
+				.attr("xlink:href", "electricity.html")
+				.append("rect")
+				.attr("x", 650)
+				.attr("y", 100)
+				.attr("height", 350)
+				.attr("width", 350)
+				.style("fill", "transparent");
+
 
 			d3.select('svg')
 				.append('g')
