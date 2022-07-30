@@ -121,6 +121,29 @@
 				.append("g")
 				.call(makeAnnotations)
 
+			// Link to index
+			d3.select('svg')
+				.append('g')
+				.append("text")
+				.attr("x", 900)
+				.attr("y", 100)
+				.style("fill", "black")
+				.style("font-size", "14")
+				.attr("dy", ".35em")
+				.attr("text-anchor", "middle")
+				.style("pointer-events", "none")
+				.text("Back to Full Graph");
+			d3.select('svg')
+				.append('g')
+				.append("a")
+				.attr("xlink:href", "index.html")
+				.append("rect")
+				.attr("x", 840)
+				.attr("y", 75)
+				.attr("height", 50)
+				.attr("width", 120)
+				.style("fill", "transparent");
+
 			// Handmade legend
 			leg.append("circle").attr("cx", 200).attr("cy", 10).attr("r", 6).style("fill", "lightblue")
 			leg.append("circle").attr("cx", 200).attr("cy", 40).attr("r", 6).style("fill", "blue")
