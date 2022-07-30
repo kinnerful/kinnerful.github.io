@@ -98,6 +98,29 @@
 
 			var leg = d3.select("#my_dataviz")
 
+			// Features of the annotation
+			const annotations = [
+				{
+					note: {
+						label: "MPGe is based on the energy content of gasoline at 33.7 kWh",
+						title: "Miles Per Gallon Equivalent (MPGe)"
+					},
+					color: ["black"],
+					x: 700,
+					y: 600,
+					dy: 100,
+					dx: 100
+				},
+
+			]
+
+			// Add annotation to the chart
+			const makeAnnotations = d3.annotation()
+				.annotations(annotations)
+			d3.select("svg")
+				.append("g")
+				.call(makeAnnotations)
+
 			// Handmade legend
 			leg.append("circle").attr("cx", 200).attr("cy", 10).attr("r", 6).style("fill", "lightblue")
 			leg.append("circle").attr("cx", 200).attr("cy", 40).attr("r", 6).style("fill", "blue")
